@@ -22,7 +22,7 @@ const NewTodo = ({ handleAddTodo }) => {
   };
 
   return (
-    <div>
+    <div className="container">
       <h1 className="title">Collect Data from a Form</h1>
       <div className="card">
         <form onSubmit={handleSubmit}>

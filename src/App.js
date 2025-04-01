@@ -8,6 +8,7 @@ const App = () => {
 
   // get the newTodo from NewTodo.js here inside this function
   const handleAddTodo = (todo) => {
+    console.log(todo);
     setTodos([...todos, todo]);
   };
 
