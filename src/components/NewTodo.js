@@ -2,31 +2,30 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 
-const NewTodo = (props) => {
-  const [todo, setTodo] = useState();
+const NewTodo = ({ handleAddTodo }) => {
+  const [todo, setTodo] = useState({ title: '', desc: '' });
 
-  // for handling todo state changes
-  const handleChange = (e) => {};
+  const handleChange = (e) => {
+    setTodo({ ...todo, [e.target.name]: e.target.value });
+  };
 
-  // submit the form and send newTodo in App.js
   const handleSubmit = (e) => {
     e.preventDefault();
     const newTodo = {
-      id: uuidv4()
+      id: uuidv4(),
+      title: todo.title,
+      desc: todo.desc
     };
 
-    // for reset todo state
-    setTodo({
-      title: '',
-      desc: ''
-    });
+    handleAddTodo(newTodo); // Send new todo to parent
+    setTodo({ title: '', desc: '' }); // Reset form
   };
 
   return (
     <div>
       <h1 className="title">Collect Data from a Form</h1>
       <div className="card">
-        <form action="" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <div className="field-group">
             <label htmlFor="title">Title: </label>
             <input
@@ -41,12 +40,7 @@ const NewTodo = (props) => {
 
           <div className="field-group">
             <label htmlFor="desc">Description: </label>
-            <textarea
-              name="desc"
-              id="desc"
-              value={todo.desc}
-              onChange={handleChange}
-              required></textarea>
+            <textarea name="desc" id="desc" value={todo.desc} onChange={handleChange} required />
           </div>
           <div className="field-group">
             <button className="btn" type="submit">
@@ -60,7 +54,7 @@ const NewTodo = (props) => {
 };
 
 NewTodo.propTypes = {
-  onHandleAddTodo: PropTypes.func
+  handleAddTodo: PropTypes.func.isRequired
 };
 
 export default NewTodo;
